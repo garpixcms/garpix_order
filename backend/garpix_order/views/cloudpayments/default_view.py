@@ -1,11 +1,9 @@
 from django.http import JsonResponse
-from ...models import CloudPayment
+from garpix_order.models.payments.cloudpayments import CloudPayment
+from garpix_order.models.config import Config
+from garpix_order.utils import hmac_sha256
 from decimal import Decimal
 from django.db import transaction
-
-from ...utils import hmac_sha256
-from ...models import Config
-
 
 PAYMENT_STATUS_COMPLETED = CloudPayment.PAYMENT_STATUS_COMPLETED
 PAYMENT_STATUS_CANCELLED = CloudPayment.PAYMENT_STATUS_CANCELLED

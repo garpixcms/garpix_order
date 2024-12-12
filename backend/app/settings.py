@@ -25,3 +25,5 @@ SBER = {
     'cryptographic_key': env('SBER_CRYPTOGRAPHIC_KEY', ''),
     'cert_path': '',
 }
+
+SBER_PAYMENT_MODEL = "garpix_order.models.payments.sber.SberPayment"

@@ -80,7 +80,7 @@ class RobokassaService:
         from garpix_order.models import BaseOrder, RobokassaPayment
         recurring_objs = Recurring.active_objects.filter(payment_system=Recurring.RecurringPaymentSystem.ROBOKASSA,
                                                          end_at__gt=datetime.now())
-        orders_to_pay = BaseOrder.objects.filter(recurring__in=recurring_objs, next_payment_date=datetime.now())
+        orders_to_pay = BaseOrder.objects.filter(recurring__in=recurring_objs, next_payment_date__date=datetime.now().date())
 
         for obj in orders_to_pay:
             payment = RobokassaPayment.objects.create(order=obj, amount=obj.total_amount, payment_type=RobokassaPayment.PaymentType.AUTO)

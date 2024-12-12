@@ -41,3 +41,8 @@ class AbstractSberPayment(BasePayment):
         abstract = True
         verbose_name = _('Платеж в Сбере')
         verbose_name_plural = _('Платежи в Сбере')
+
+
+class SberPayment(AbstractSberPayment):
+    class Meta:
+        abstract = False

@@ -191,7 +191,7 @@ class SberService:
         error_code = payment_data.get('errorCode')  # Если error_code == 0 или не пришел, значит ошибок нет
         payment.provider_data = json.dumps(payment_data, ensure_ascii=False)
 
-        if order_status:  # Пришел внешний статус заказа
+        if order_status is not None:  # Пришел внешний статус заказа
             order_status = int(order_status)
             self._change_payment_status(payment=payment, order_status=order_status)
 

@@ -40,7 +40,7 @@ class CloudpaymentView(TemplateView):
             return JsonResponse({
                 'publicId': config.cloudpayments_public_id,
                 'description': 'Оплата товара',
-                'amount': payment.price,
+                'amount': payment.amount,
                 'currency': 'RUB',
                 'invoiceId': payment.order_number,
                 'skin': "mini",
@@ -94,7 +94,7 @@ class CloudpaymentView(TemplateView):
         if request_data and len(request_data) > 0 and local_hmac == cloud_hmac:
             try:
                 payment = CloudPayment.objects.get(payment_uuid=request_data.get('InvoiceId'))
-                payment_price = payment.price
+                payment_price = payment.amount
                 request_price = Decimal(request_data.get('Amount'))
                 if payment_price != request_price:
                     return JsonResponse({
@@ -120,7 +120,7 @@ class CloudpaymentView(TemplateView):
     @classmethod
     @csrf_exempt
     def fail_view(cls, request) -> Optional[JsonResponse]:
-        cls._default_view(request)
+        return cls._default_view(request)
 
     @staticmethod
     def _get_response_data(request) -> dict:
